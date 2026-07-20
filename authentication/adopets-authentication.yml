@@ -1,0 +1,24 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/adopets-external-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Organization API key issued by Adopets, sent on every request.
+  sources:
+  - openapi/adopets-external-openapi.yml
+- name: sessionBearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Per-session token (data.authorization) returned by system-auth/connect.
+  sources:
+  - openapi/adopets-external-openapi.yml
