@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Adopets External API
+  version: 1.0.0
+extends: openapi/adopets-external-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-source: https://developers.adopets.com/
+      x-apievangelist-derived-from: public Postman collection external-api-organization
+      x-apievangelist-domain: pet-adoption / payments
+  - target: $.tags
+    update:
+      - name: payments
+        description: Adoption payment request and transaction operations
+  - target: $.paths./organization/external/payment-transaction/refund.post
+    update:
+      x-consequence: physical
+      x-agentic-note: Moves money; recommend human-in-the-loop for agent-initiated refunds.

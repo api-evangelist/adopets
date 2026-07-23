@@ -1,0 +1,346 @@
+openapi: 3.1.0
+info:
+  title: Adopets External payment-request API
+  version: '1.0'
+  description: Adopets External API for organization (shelter/rescue) integrations. It lets an external partner system connect a staff user, then create and manage adoption-related payment requests and their transactions (adoption fees, licenses, products), including retrieving, changing, cancelling requests and refunding transactions. All operations are HTTP POST with a JSON body and use an organization API key (x-api-key) plus a per-session bearer token obtained from system-auth/connect. Derived from the provider's public Postman documentation; request/response shapes reflect the published examples.
+  contact:
+    name: Adopets
+    url: https://developers.adopets.com/
+servers:
+- url: https://service.api.dev.adopets.app
+  description: Documented (development) host from the public Postman collection
+- url: https://service.api.adopets.app
+  description: Production host (DNS-resolvable; inferred from the dev host naming, verify before use)
+security:
+- apiKeyAuth: []
+  sessionBearer: []
+tags:
+- name: payment-request
+  description: Create and manage adoption payment requests
+paths:
+  /organization/external/payment-request/create:
+    post:
+      tags:
+      - payment-request
+      operationId: createPaymentRequest
+      summary: Create external payment request
+      description: Creates an external payment request for an adoption transaction, including one or more line items (adoption fee, license, product) charged to an adopter.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestCreate'
+      responses:
+        '200':
+          description: OK — payment request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopePaymentRequest'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+  /organization/external/payment-request/get:
+    post:
+      tags:
+      - payment-request
+      operationId: getPaymentRequest
+      summary: Get external payment request
+      description: Retrieves detailed information about an external payment request by its UUID.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+        sessionBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UuidRef'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopePaymentRequest'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+  /organization/external/payment-request/cancel:
+    post:
+      tags:
+      - payment-request
+      operationId: cancelPaymentRequest
+      summary: Cancel external payment request
+      description: Cancels an existing external payment request; its status transitions to CANCELLED.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+        sessionBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UuidRef'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopePaymentRequest'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+  /organization/external/payment-request/change:
+    post:
+      tags:
+      - payment-request
+      operationId: changePaymentRequestItems
+      summary: Change payment request items
+      description: Modifies items in an external payment request. The action key selects the operation (ADD, DELETE, UPDATE) and items is a map keyed by item hash.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+        sessionBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestChange'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopePaymentRequest'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+components:
+  schemas:
+    EnvelopePaymentRequest:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/PaymentRequest'
+    PaymentRequestItem:
+      type: object
+      properties:
+        name:
+          type: string
+        base_amount:
+          type: number
+        taxes_amount:
+          type: number
+        adjust_amount:
+          type: number
+        charge_amount:
+          type: number
+        taxes_percentage:
+          type: number
+        adjust_reason:
+          type:
+          - string
+          - 'null'
+        type_key:
+          type: string
+          description: Item classification.
+          enum:
+          - ADOPTION_FEE
+          - LICENSE
+          - PRODUCT
+        image:
+          type:
+          - string
+          - 'null'
+        is_required:
+          type: boolean
+        extra:
+          type: object
+    PaymentRequestCreate:
+      type: object
+      required:
+      - adopter_email
+      - type_key
+      - items
+      properties:
+        adopter_email:
+          type: string
+          format: email
+        adopter_first_name:
+          type: string
+        adopter_last_name:
+          type: string
+        type_key:
+          type: string
+          example: EXTERNAL_ADOPTION
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestItem'
+    PaymentRequest:
+      type: object
+      description: Adoption payment request resource (subset of published fields).
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+          format: uuid
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        deleted:
+          type: boolean
+        canonical:
+          type: string
+        shelter_id:
+          type: integer
+        shelter_uuid:
+          type: string
+          format: uuid
+        type_key:
+          type: string
+        status_key:
+          type: string
+          description: e.g. PENDING
+          CANCELLED: null
+        currency:
+          type: string
+        code:
+          type: string
+        request_hash:
+          type: string
+          description: Server-computed request fingerprint
+        gateway_type:
+          type: string
+        owner_type:
+          type: string
+        transaction_id:
+          type:
+          - integer
+          - 'null'
+        transaction_uuid:
+          type:
+          - string
+          - 'null'
+        contract_unsigned:
+          type:
+          - string
+          - 'null'
+        contract_signed:
+          type:
+          - string
+          - 'null'
+        adopter_user_id:
+          type:
+          - integer
+          - 'null'
+        adopter_user_uuid:
+          type:
+          - string
+          - 'null'
+        items_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestItem'
+        items_purchased: {}
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
+    PaymentRequestChange:
+      type: object
+      required:
+      - uuid
+      - action
+      - items
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        action:
+          type: string
+          enum:
+          - ADD
+          - DELETE
+          - UPDATE
+        items:
+          type: object
+          description: Map keyed by item hash; values are PaymentRequestItem objects.
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentRequestItem'
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
+    UuidRef:
+      type: object
+      required:
+      - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      description: Preferred response language (e.g. en, pt-BR).
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Organization API key issued by Adopets, sent on every request.
+    sessionBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Per-session token (data.authorization) returned by system-auth/connect.
+x-generated: '2026-07-17'
+x-method: derived
+x-source: https://developers.adopets.com/ (public Postman collection external-api-organization, publishedId 2sB34bK3Rk)

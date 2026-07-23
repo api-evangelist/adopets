@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Adopets External payment-request system-auth API
+  version: '1.0'
+  description: Adopets External API for organization (shelter/rescue) integrations. It lets an external partner system connect a staff user, then create and manage adoption-related payment requests and their transactions (adoption fees, licenses, products), including retrieving, changing, cancelling requests and refunding transactions. All operations are HTTP POST with a JSON body and use an organization API key (x-api-key) plus a per-session bearer token obtained from system-auth/connect. Derived from the provider's public Postman documentation; request/response shapes reflect the published examples.
+  contact:
+    name: Adopets
+    url: https://developers.adopets.com/
+servers:
+- url: https://service.api.dev.adopets.app
+  description: Documented (development) host from the public Postman collection
+- url: https://service.api.adopets.app
+  description: Production host (DNS-resolvable; inferred from the dev host naming, verify before use)
+security:
+- apiKeyAuth: []
+  sessionBearer: []
+tags:
+- name: system-auth
+  description: Connect/disconnect an external system user and obtain a session token
+paths:
+  /organization/external/system-auth/connect:
+    post:
+      tags:
+      - system-auth
+      operationId: connectExternalSystemUser
+      summary: Connect external system user
+      description: Authenticates and connects an external system user to the organization, returning an authorization (session) token used as the bearer token for subsequent requests.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalSystemUser'
+            example:
+              email: andre@petloyalty.co
+              first_name: André
+              last_name: Martins
+              role: admin
+      responses:
+        '200':
+          description: OK — session authorization token returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeAuth'
+              example:
+                prefix: 2xx
+                status: 200
+                cached: false
+                message: OK
+                data:
+                  authorization: <JWT>
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+  /organization/external/system-auth/disconnect:
+    post:
+      tags:
+      - system-auth
+      operationId: disconnectExternalSystemUser
+      summary: Disconnect external system user
+      description: Disconnects a user from the external system authentication, removing their integration access.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalSystemUser'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+components:
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      description: Preferred response language (e.g. en, pt-BR).
+      schema:
+        type: string
+  schemas:
+    ExternalSystemUser:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        role:
+          type: string
+          description: External user role.
+          enum:
+          - staff
+          - super_user
+          - editor
+          - owner
+          - foster_admin
+          - admin
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
+    EnvelopeAuth:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              authorization:
+                type: string
+                description: JWT session token
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Organization API key issued by Adopets, sent on every request.
+    sessionBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Per-session token (data.authorization) returned by system-auth/connect.
+x-generated: '2026-07-17'
+x-method: derived
+x-source: https://developers.adopets.com/ (public Postman collection external-api-organization, publishedId 2sB34bK3Rk)

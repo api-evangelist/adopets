@@ -1,0 +1,18 @@
+{
+  "provider": "adopets",
+  "sources": [
+    "adopets-payment-request-api-openapi.yml",
+    "adopets-payment-transaction-api-openapi.yml",
+    "adopets-system-auth-api-openapi.yml"
+  ],
+  "outputs": [
+    "adopets-payment-request-api-openapi.yml",
+    "adopets-payment-transaction-api-openapi.yml",
+    "adopets-system-auth-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

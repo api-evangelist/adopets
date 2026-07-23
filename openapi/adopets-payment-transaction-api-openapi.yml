@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: Adopets External payment-request payment-transaction API
+  version: '1.0'
+  description: Adopets External API for organization (shelter/rescue) integrations. It lets an external partner system connect a staff user, then create and manage adoption-related payment requests and their transactions (adoption fees, licenses, products), including retrieving, changing, cancelling requests and refunding transactions. All operations are HTTP POST with a JSON body and use an organization API key (x-api-key) plus a per-session bearer token obtained from system-auth/connect. Derived from the provider's public Postman documentation; request/response shapes reflect the published examples.
+  contact:
+    name: Adopets
+    url: https://developers.adopets.com/
+servers:
+- url: https://service.api.dev.adopets.app
+  description: Documented (development) host from the public Postman collection
+- url: https://service.api.adopets.app
+  description: Production host (DNS-resolvable; inferred from the dev host naming, verify before use)
+security:
+- apiKeyAuth: []
+  sessionBearer: []
+tags:
+- name: payment-transaction
+  description: Retrieve and refund payment transactions
+paths:
+  /organization/external/payment-transaction/get:
+    post:
+      tags:
+      - payment-transaction
+      operationId: getPaymentTransaction
+      summary: Get external payment transaction
+      description: Retrieves a payment transaction by its UUID.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+        sessionBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UuidRef'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+  /organization/external/payment-transaction/refund:
+    post:
+      tags:
+      - payment-transaction
+      operationId: refundPaymentTransaction
+      summary: Refund external payment transaction
+      description: Refunds a payment transaction, in whole or in part. type_key selects the refund source (e.g. SHELTER_FUNDS), reason is a machine reason code, and amount is the refund amount.
+      parameters:
+      - $ref: '#/components/parameters/AcceptLanguage'
+      security:
+      - apiKeyAuth: []
+        sessionBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+            example:
+              uuid: <transaction-uuid>
+              type_key: SHELTER_FUNDS
+              reason: requested_by_customer
+              amount: 10.0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        default:
+          description: Error envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeError'
+components:
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      description: Preferred response language (e.g. en, pt-BR).
+      schema:
+        type: string
+  schemas:
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
+    UuidRef:
+      type: object
+      required:
+      - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
+    RefundRequest:
+      type: object
+      required:
+      - uuid
+      - amount
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        type_key:
+          type: string
+          example: SHELTER_FUNDS
+        reason:
+          type: string
+          example: requested_by_customer
+        amount:
+          type: number
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Organization API key issued by Adopets, sent on every request.
+    sessionBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Per-session token (data.authorization) returned by system-auth/connect.
+x-generated: '2026-07-17'
+x-method: derived
+x-source: https://developers.adopets.com/ (public Postman collection external-api-organization, publishedId 2sB34bK3Rk)

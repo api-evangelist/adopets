@@ -1,0 +1,60 @@
+generated: '2026-07-17'
+method: derived
+source: >-
+  openapi/adopets-external-openapi.yml + public Postman collection
+  external-api-organization (https://developers.adopets.com/)
+summary: >-
+  Cross-cutting request/response conventions for the Adopets External API, derived from the
+  provider's public Postman documentation. RPC-style: every operation is an HTTP POST with a
+  JSON body; responses use a uniform envelope. Two-factor request auth (organization API key
+  header + per-session bearer token).
+authentication:
+  style: api-key + session-bearer
+  api_key: { header: x-api-key, scope: organization }
+  session_token:
+    obtained_from: /organization/external/system-auth/connect
+    sent_as: Authorization
+    scheme: bearer
+    format: JWT
+    notes: Required on payment-request get/cancel/change and all payment-transaction operations.
+  reference: authentication/adopets-authentication.yml
+request:
+  transport: HTTPS
+  method: POST (all operations, RPC-style)
+  content_type: application/json
+  localization:
+    header: Accept-Language
+    note: Optional preferred response language (e.g. en, pt-BR).
+response_envelope:
+  shape:
+    prefix: string      # e.g. "2xx", "4xx", "5xx"
+    status: integer     # HTTP-equivalent status code
+    cached: boolean     # whether the response was served from cache
+    message: string     # "OK" on success; error message otherwise
+    data: object|array  # operation payload
+  success_example: { prefix: "2xx", status: 200, cached: false, message: OK }
+identifiers:
+  resource_key: uuid    # payment requests and transactions are addressed by uuid
+  also_present: [id (integer), code (human-readable)]
+  item_key: hash        # cart items are keyed by a server-computed hash (used by change action)
+idempotency:
+  documented_key: false
+  note: >-
+    No client-supplied idempotency key (Idempotency-Key header/param) is documented. Responses
+    do carry a server-computed request_hash (request fingerprint) on the payment request, but the
+    provider does not publish a client-controlled idempotency contract, so no Idempotency pointer
+    is asserted.
+pagination:
+  documented: false
+  note: The published external API surface is action-oriented (create/get/cancel/change/refund); no list/collection endpoints are documented.
+versioning:
+  scheme: none-in-path
+  note: The external API paths carry no version segment; environment is expressed via host (dev vs prod).
+errors:
+  envelope: response_envelope (prefix 4xx/5xx, non-OK message)
+  reference: errors/adopets-problem-types.yml
+cross_links:
+  authentication: authentication/adopets-authentication.yml
+  errors: errors/adopets-problem-types.yml
+  data_model: data-model/adopets-data-model.yml
+  sandbox: sandbox/adopets-sandbox.yml

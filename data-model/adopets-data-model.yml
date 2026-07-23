@@ -1,0 +1,59 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/adopets-external-openapi.yml + public Postman collection response examples
+entities:
+  - name: PaymentRequest
+    key: uuid
+    also_keyed_by: [id, code]
+    description: An adoption payment request created for an adopter, carrying one or more line items.
+    fields:
+      - { name: uuid, type: uuid, role: primary_key }
+      - { name: id, type: integer }
+      - { name: code, type: string }
+      - { name: status_key, type: string, note: "e.g. PENDING, CANCELLED" }
+      - { name: type_key, type: string, note: "e.g. EXTERNAL_ADOPTION" }
+      - { name: currency, type: string }
+      - { name: request_hash, type: string, note: server-computed request fingerprint }
+      - { name: gateway_type, type: string }
+      - { name: created_date, type: string }
+      - { name: modified_date, type: string }
+    relationships:
+      - { type: belongs_to, target: Shelter, via: shelter_uuid }
+      - { type: belongs_to, target: Adopter, via: adopter_user_uuid }
+      - { type: has_many, target: PaymentRequestItem, via: items_cart }
+      - { type: has_one, target: PaymentTransaction, via: transaction_uuid }
+  - name: PaymentRequestItem
+    key: hash
+    description: A single billable line item on a payment request (adoption fee, license, or product).
+    fields:
+      - { name: hash, type: string, role: primary_key }
+      - { name: name, type: string }
+      - { name: type_key, type: string, note: "ADOPTION_FEE | LICENSE | PRODUCT" }
+      - { name: base_amount, type: number }
+      - { name: taxes_amount, type: number }
+      - { name: adjust_amount, type: number }
+      - { name: charge_amount, type: number }
+      - { name: taxes_percentage, type: number }
+      - { name: is_required, type: boolean }
+      - { name: image, type: string, nullable: true }
+    relationships:
+      - { type: belongs_to, target: PaymentRequest, via: request_hash }
+  - name: PaymentTransaction
+    key: uuid
+    description: A settled/attempted payment against a payment request; supports refunds.
+    fields:
+      - { name: uuid, type: uuid, role: primary_key }
+    relationships:
+      - { type: belongs_to, target: PaymentRequest, via: transaction_uuid }
+  - name: Shelter
+    key: shelter_uuid
+    description: The organization (shelter/rescue) that owns the payment request.
+  - name: Adopter
+    key: adopter_user_uuid
+    description: The adopter (customer) charged for the adoption.
+  - name: ExternalSystemUser
+    key: email
+    description: An external partner-system staff user connected via system-auth.
+    fields:
+      - { name: email, type: string, role: primary_key }
+      - { name: role, type: string, note: "staff | super_user | editor | owner | foster_admin | admin" }

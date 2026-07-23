@@ -1,0 +1,12 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/adopets-external-openapi.yml
+skills:
+  - file: adopets-collect-adoption-payment.md
+    name: Collect an adoption payment with Adopets
+    api: openapi/adopets-external-openapi.yml
+    operations: [connectExternalSystemUser, createPaymentRequest, getPaymentRequest]
+  - file: adopets-refund-transaction.md
+    name: Refund an adoption payment with Adopets
+    api: openapi/adopets-external-openapi.yml
+    operations: [connectExternalSystemUser, getPaymentTransaction, refundPaymentTransaction]

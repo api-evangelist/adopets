@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: searched
+source: public Postman collection external-api-organization (https://developers.adopets.com/)
+summary: >-
+  Adopets publishes its External API through a public Postman workspace whose requests target a
+  development host. There is no separately documented sandbox/test-key scheme; the development
+  environment below is what the provider exposes for integration testing. No test card numbers or
+  magic values are published in the collection.
+environments:
+  - name: development
+    base_url: https://service.api.dev.adopets.app
+    documented: true
+    note: Host used by every request in the public Postman collection.
+  - name: production
+    base_url: https://service.api.adopets.app
+    documented: false
+    note: DNS-resolvable; inferred from the dev host naming. Verify with Adopets before use.
+test_values_in_docs:
+  adopter_email_pattern: "andre+test100001@petloyalty.co"   # example adopter email used in create sample
+  external_user_email: "andre@petloyalty.co"                # example external system user
+  item_type_keys: [ADOPTION_FEE, LICENSE, PRODUCT]
+  payment_request_type_key: EXTERNAL_ADOPTION
+  refund_type_key: SHELTER_FUNDS
+  refund_reason: requested_by_customer
+notes:
+  - No published test card numbers, test clocks, or fixture triggers were found.
+  - Payments are processed via Stripe (per Adopets privacy notes); Stripe's own test cards would apply where card entry is exposed.

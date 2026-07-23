@@ -1,0 +1,56 @@
+arazzo: 1.0.1
+info:
+  title: Create and collect an adoption payment (Adopets External API)
+  version: 1.0.0
+  description: >-
+    Connect an external system user, create an adoption payment request with line items, then
+    retrieve it to confirm status. Grounded in real operationIds from the Adopets External API.
+sourceDescriptions:
+  - name: adopets
+    url: ../openapi/adopets-external-openapi.yml
+    type: openapi
+workflows:
+  - workflowId: create-adoption-payment
+    summary: Connect a staff user, create a payment request, and read it back.
+    inputs:
+      type: object
+      properties:
+        email: { type: string }
+        first_name: { type: string }
+        last_name: { type: string }
+        role: { type: string }
+        adopter_email: { type: string }
+        items: { type: array }
+    steps:
+      - stepId: connect
+        operationId: connectExternalSystemUser
+        requestBody:
+          contentType: application/json
+          payload:
+            email: $inputs.email
+            first_name: $inputs.first_name
+            last_name: $inputs.last_name
+            role: $inputs.role
+        outputs:
+          session: $response.body#/data/authorization
+      - stepId: create
+        operationId: createPaymentRequest
+        requestBody:
+          contentType: application/json
+          payload:
+            adopter_email: $inputs.adopter_email
+            type_key: EXTERNAL_ADOPTION
+            items: $inputs.items
+        outputs:
+          uuid: $response.body#/data/uuid
+      - stepId: read-back
+        operationId: getPaymentRequest
+        requestBody:
+          contentType: application/json
+          payload:
+            uuid: $steps.create.outputs.uuid
+        outputs:
+          status_key: $response.body#/data/status_key
+    outputs:
+      payment_request_uuid: $steps.create.outputs.uuid
+      status: $steps.read-back.outputs.status_key

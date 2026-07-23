@@ -1,0 +1,36 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/adopets-external-openapi.yml + public Postman collection (external-api-organization)
+format: envelope
+envelope:
+  description: >-
+    Adopets does not use RFC 9457 problem+json. Errors are returned in the same uniform
+    response envelope as successes, with a non-2xx prefix/status and an explanatory message.
+  fields:
+    prefix: string      # "4xx" / "5xx"
+    status: integer     # HTTP-equivalent status
+    cached: boolean
+    message: string     # human-readable error message
+    data: object|array|null
+notes: >-
+  The public Postman documentation includes a FAILED example on system-auth/connect but does not
+  publish a distinct error body, and no error-code reference page was found. The problems below are
+  derived from the documented operations and the envelope shape; codes/titles are conservative and
+  should be enriched if Adopets publishes an error reference.
+problems:
+  - status: 401
+    title: Authentication failed
+    detail: Invalid or missing organization API key (x-api-key) or session bearer token.
+    source_operation: openapi/adopets-external-openapi.yml#connectExternalSystemUser
+  - status: 400
+    title: Invalid request
+    detail: Malformed or missing required fields in the JSON body (e.g. adopter_email, items, uuid).
+    source_operation: openapi/adopets-external-openapi.yml#createPaymentRequest
+  - status: 404
+    title: Payment request not found
+    detail: No payment request or transaction exists for the supplied uuid.
+    source_operation: openapi/adopets-external-openapi.yml#getPaymentRequest
+  - status: 409
+    title: Invalid state transition
+    detail: The payment request cannot be cancelled or changed in its current status (e.g. already CANCELLED or paid).
+    source_operation: openapi/adopets-external-openapi.yml#cancelPaymentRequest

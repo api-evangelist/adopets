@@ -1,0 +1,26 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/adopets-external-openapi.yml + public Postman collection
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: No oauth2 security scheme; auth is organization API key + JWT session bearer.
+  - id: openid-connect
+    conforms: false
+  - id: bearer-token-rfc6750
+    conforms: true
+    evidence: Session token sent as Authorization bearer (JWT) per system-auth/connect.
+  - id: api-key-auth
+    conforms: true
+    evidence: x-api-key organization key required on every request.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a proprietary response envelope (prefix/status/message/data), not application/problem+json.
+  - id: json-api
+    conforms: false
+  - id: rpc-over-http
+    conforms: true
+    evidence: All operations are HTTP POST with a JSON body and a uniform response envelope.
+  - id: pci-dss
+    conforms: unknown
+    evidence: Adopets processes card payments (Stripe is the documented processor per privacy notes) but no published PCI attestation was found in the developer surface.

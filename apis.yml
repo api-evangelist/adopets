@@ -1,20 +1,83 @@
 aid: adopets
 name: Adopets
-description: Adopets is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Adopets is an Adoption Management System (AMS) for animal shelters and rescues that streamlines
+  the entire pet adoption process — online and in-person applications, approval and team
+  collaboration workflows, digital kennel cards with QR codes, secure payment processing for
+  adoption fees, licenses, products and donations, daily reporting and dashboards, and
+  post-adoption communication. Backed by Techstars. Adopets exposes an External API (documented
+  as a public Postman collection) that lets partner systems connect staff users and create,
+  retrieve, change, cancel, and refund adoption payment requests and transactions on behalf of an
+  organization, authenticated with an organization API key plus a per-session JWT bearer token.
 url: https://raw.githubusercontent.com/api-evangelist/adopets/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://avatars.githubusercontent.com/u/19703738?v=4
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
 modified: '2026-07-17'
 tags:
+- Pet Adoption
+- Animal Welfare
+- Shelters and Rescues
+- Adoption Management
+- Payments
+- Nonprofit Technology
+- SaaS
 - Company
-apis: []
+apis:
+- aid: adopets:adopets-payment-request-api
+  name: Adopets payment-request API
+  description: Create and manage adoption payment requests
+  humanURL: https://developers.adopets.com/
+  baseURL: https://service.api.dev.adopets.app
+  tags:
+  - payment-request
+  properties:
+  - type: OpenAPI
+    url: openapi/adopets-payment-request-api-openapi.yml
+  - type: Documentation
+    url: https://developers.adopets.com/
+- aid: adopets:adopets-payment-transaction-api
+  name: Adopets payment-transaction API
+  description: Retrieve and refund payment transactions
+  humanURL: https://developers.adopets.com/
+  baseURL: https://service.api.dev.adopets.app
+  tags:
+  - payment-transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/adopets-payment-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://developers.adopets.com/
+- aid: adopets:adopets-system-auth-api
+  name: Adopets system-auth API
+  description: Connect/disconnect an external system user and obtain a session token
+  humanURL: https://developers.adopets.com/
+  baseURL: https://service.api.dev.adopets.app
+  tags:
+  - system-auth
+  properties:
+  - type: OpenAPI
+    url: openapi/adopets-system-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developers.adopets.com/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +86,50 @@ maintainers:
 common:
 - type: Website
   url: https://adopets.com/
+- type: DeveloperPortal
+  url: https://developers.adopets.com/
+- type: Documentation
+  url: https://developers.adopets.com/
+- type: APIReference
+  url: https://developers.adopets.com/
+- type: Postman
+  url: https://developers.adopets.com/
+- type: GitHubOrganization
+  url: https://github.com/adopets
+- type: OpenAPI
+  url: openapi/adopets-external-openapi.yml
+- type: Overlay
+  url: overlays/adopets-external-overlay.yaml
+- type: Authentication
+  url: authentication/adopets-authentication.yml
+- type: Conventions
+  url: conventions/adopets-conventions.yml
+- type: ErrorCatalog
+  url: errors/adopets-problem-types.yml
+- type: DataModel
+  url: data-model/adopets-data-model.yml
+- type: MCPServer
+  url: mcp/adopets-mcp.yml
+- type: AgenticAccess
+  url: agentic-access/adopets-agentic-access.yml
+- type: DomainSecurity
+  url: security/adopets-domain-security.yml
+- type: Conformance
+  url: conformance/adopets-conformance.yml
+- type: Sandbox
+  url: sandbox/adopets-sandbox.yml
+- type: LLMsTxt
+  url: llms/adopets-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Create and collect an adoption payment
+  url: arazzo/adopets-create-adoption-payment.yml
+- type: Arazzo
+  name: Refund an adoption payment transaction
+  url: arazzo/adopets-refund-transaction.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

@@ -1,0 +1,12 @@
+generated: '2026-07-17'
+method: derived
+source: arazzo/*.yml
+workflows:
+  - file: adopets-create-adoption-payment.yml
+    workflowId: create-adoption-payment
+    title: Create and collect an adoption payment
+    summary: Connect a staff user, create an adoption payment request with items, and read it back.
+  - file: adopets-refund-transaction.yml
+    workflowId: refund-transaction
+    title: Refund an adoption payment transaction
+    summary: Connect, fetch a payment transaction by uuid, and issue a full or partial refund.
