@@ -97,7 +97,7 @@ common:
 - type: GitHubOrganization
   url: https://github.com/adopets
 - type: OpenAPI
-  url: openapi/adopets-external-openapi.yml
+  url: openapi/_original/adopets-external-openapi.yml
 - type: Overlay
   url: overlays/adopets-external-overlay.yaml
 - type: Authentication
