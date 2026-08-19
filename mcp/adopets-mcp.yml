@@ -2,34 +2,39 @@ generated: '2026-07-17'
 method: derived
 status: candidate
 source: openapi/adopets-external-openapi.yml
-note: >-
-  No official hosted/remote Adopets MCP server was found. This is a candidate tool list derived
-  one-to-one from the External API operations, for use in forging an MCP server.
+note: No official hosted/remote Adopets MCP server was found. This is a candidate tool list derived one-to-one
+  from the External API operations, for use in forging an MCP server.
 server:
   name: adopets-external
   transport: http
 tools:
-  - name: connect_external_system_user
-    description: Connect an external system user and obtain a session token.
-    source_operation: openapi/adopets-external-openapi.yml#connectExternalSystemUser
-  - name: disconnect_external_system_user
-    description: Disconnect an external system user.
-    source_operation: openapi/adopets-external-openapi.yml#disconnectExternalSystemUser
-  - name: create_payment_request
-    description: Create an external adoption payment request with line items.
-    source_operation: openapi/adopets-external-openapi.yml#createPaymentRequest
-  - name: get_payment_request
-    description: Retrieve a payment request by uuid.
-    source_operation: openapi/adopets-external-openapi.yml#getPaymentRequest
-  - name: cancel_payment_request
-    description: Cancel a payment request by uuid.
-    source_operation: openapi/adopets-external-openapi.yml#cancelPaymentRequest
-  - name: change_payment_request_items
-    description: Add, update, or remove items on a payment request.
-    source_operation: openapi/adopets-external-openapi.yml#changePaymentRequestItems
-  - name: get_payment_transaction
-    description: Retrieve a payment transaction by uuid.
-    source_operation: openapi/adopets-external-openapi.yml#getPaymentTransaction
-  - name: refund_payment_transaction
-    description: Refund a payment transaction in whole or in part.
-    source_operation: openapi/adopets-external-openapi.yml#refundPaymentTransaction
+- name: connect_external_system_user
+  description: Connect an external system user and obtain a session token.
+  source_operation: openapi/adopets-external-openapi.yml#connectExternalSystemUser
+- name: disconnect_external_system_user
+  description: Disconnect an external system user.
+  source_operation: openapi/adopets-external-openapi.yml#disconnectExternalSystemUser
+- name: create_payment_request
+  description: Create an external adoption payment request with line items.
+  source_operation: openapi/adopets-external-openapi.yml#createPaymentRequest
+- name: get_payment_request
+  description: Retrieve a payment request by uuid.
+  source_operation: openapi/adopets-external-openapi.yml#getPaymentRequest
+- name: cancel_payment_request
+  description: Cancel a payment request by uuid.
+  source_operation: openapi/adopets-external-openapi.yml#cancelPaymentRequest
+- name: change_payment_request_items
+  description: Add, update, or remove items on a payment request.
+  source_operation: openapi/adopets-external-openapi.yml#changePaymentRequestItems
+- name: get_payment_transaction
+  description: Retrieve a payment transaction by uuid.
+  source_operation: openapi/adopets-external-openapi.yml#getPaymentTransaction
+- name: refund_payment_transaction
+  description: Refund a payment transaction in whole or in part.
+  source_operation: openapi/adopets-external-openapi.yml#refundPaymentTransaction
+deployment:
+  mode: none
+  verified: derived
+  tools: 8
+  checked: '2026-08-12'
+  source: catalog MCP census

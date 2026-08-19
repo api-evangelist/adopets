@@ -1,0 +1,821 @@
+{
+  "item": [
+    {
+      "id": "07e366bd-10ad-430b-8286-1deb74ee1076",
+      "name": "payment-request",
+      "description": {
+        "content": "Create and manage adoption payment requests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "685c7e02-ab55-4eac-8464-146cffac5f68",
+          "name": "Create external payment request",
+          "request": {
+            "name": "Create external payment request",
+            "description": {
+              "content": "Creates an external payment request for an adoption transaction, including one or more line items (adoption fee, license, product) charged to an adopter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organization",
+                "external",
+                "payment-request",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Preferred response language (e.g. en, pt-BR).",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"adopter_email\": \"<email>\",\n  \"type_key\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"base_amount\": \"<number>\",\n      \"taxes_amount\": \"<number>\",\n      \"adjust_amount\": \"<number>\",\n      \"charge_amount\": \"<number>\",\n      \"taxes_percentage\": \"<number>\",\n      \"adjust_reason\": \"<string,null>\",\n      \"type_key\": \"<string>\",\n      \"image\": \"<string,null>\",\n      \"is_required\": \"<boolean>\",\n      \"extra\": \"<object>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"base_amount\": \"<number>\",\n      \"taxes_amount\": \"<number>\",\n      \"adjust_amount\": \"<number>\",\n      \"charge_amount\": \"<number>\",\n      \"taxes_percentage\": \"<number>\",\n      \"adjust_reason\": \"<string,null>\",\n      \"type_key\": \"<string>\",\n      \"image\": \"<string,null>\",\n      \"is_required\": \"<boolean>\",\n      \"extra\": \"<object>\"\n    }\n  ],\n  \"adopter_first_name\": \"<string>\",\n  \"adopter_last_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c3ec8ea-a007-4120-bd99-566993e34d5d",
+              "name": "OK — payment request created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"adopter_email\": \"<email>\",\n  \"type_key\": \"EXTERNAL_ADOPTION\",\n  \"items\": [\n    {\n      \"name\": \"string\",\n      \"base_amount\": 5197.594339956785,\n      \"taxes_amount\": 7303.756866170535,\n      \"adjust_amount\": 4815.605197768481,\n      \"charge_amount\": 4107.497651092446,\n      \"taxes_percentage\": 7577.171037628738,\n      \"adjust_reason\": \"string\",\n      \"type_key\": \"LICENSE\",\n      \"image\": \"string\",\n      \"is_required\": false,\n      \"extra\": {}\n    },\n    {\n      \"name\": \"string\",\n      \"base_amount\": 4255.249150570071,\n      \"taxes_amount\": 1337.7685632417335,\n      \"adjust_amount\": 7646.750452975309,\n      \"charge_amount\": 8738.316792375443,\n      \"taxes_percentage\": 635.707858740453,\n      \"adjust_reason\": \"string\",\n      \"type_key\": \"ADOPTION_FEE\",\n      \"image\": \"string\",\n      \"is_required\": true,\n      \"extra\": {}\n    }\n  ],\n  \"adopter_first_name\": \"<string>\",\n  \"adopter_last_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": {\n    \"id\": 7466,\n    \"uuid\": \"e77bce02-2d62-4e72-3f13-0c49627efd04\",\n    \"created_date\": \"string\",\n    \"modified_date\": \"string\",\n    \"deleted\": true,\n    \"canonical\": \"string\",\n    \"shelter_id\": 3647,\n    \"shelter_uuid\": \"2d4481f5-ed7d-1905-5320-6f1e45b862d3\",\n    \"type_key\": \"string\",\n    \"status_key\": \"string\",\n    \"currency\": \"string\",\n    \"code\": \"string\",\n    \"request_hash\": \"string\",\n    \"gateway_type\": \"string\",\n    \"owner_type\": \"string\",\n    \"transaction_id\": 597,\n    \"transaction_uuid\": \"string\",\n    \"contract_unsigned\": \"string\",\n    \"contract_signed\": \"string\",\n    \"adopter_user_id\": 3883,\n    \"adopter_user_uuid\": \"string\",\n    \"items_cart\": [\n      {\n        \"name\": \"string\",\n        \"base_amount\": 7350.444689518052,\n        \"taxes_amount\": 8121.886801106013,\n        \"adjust_amount\": 6676.6284526206955,\n        \"charge_amount\": 9610.132859537442,\n        \"taxes_percentage\": 9411.15076004987,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"ADOPTION_FEE\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      },\n      {\n        \"name\": \"string\",\n        \"base_amount\": 8553.081923424319,\n        \"taxes_amount\": 7754.757624338162,\n        \"adjust_amount\": 7294.16141912684,\n        \"charge_amount\": 8828.983416695726,\n        \"taxes_percentage\": 2961.494813833919,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"PRODUCT\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      }\n    ],\n    \"items_purchased\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faadbcea-ccaa-4e4a-bdaf-281eb56dc260",
+              "name": "Error envelope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"adopter_email\": \"<email>\",\n  \"type_key\": \"EXTERNAL_ADOPTION\",\n  \"items\": [\n    {\n      \"name\": \"string\",\n      \"base_amount\": 5197.594339956785,\n      \"taxes_amount\": 7303.756866170535,\n      \"adjust_amount\": 4815.605197768481,\n      \"charge_amount\": 4107.497651092446,\n      \"taxes_percentage\": 7577.171037628738,\n      \"adjust_reason\": \"string\",\n      \"type_key\": \"LICENSE\",\n      \"image\": \"string\",\n      \"is_required\": false,\n      \"extra\": {}\n    },\n    {\n      \"name\": \"string\",\n      \"base_amount\": 4255.249150570071,\n      \"taxes_amount\": 1337.7685632417335,\n      \"adjust_amount\": 7646.750452975309,\n      \"charge_amount\": 8738.316792375443,\n      \"taxes_percentage\": 635.707858740453,\n      \"adjust_reason\": \"string\",\n      \"type_key\": \"ADOPTION_FEE\",\n      \"image\": \"string\",\n      \"is_required\": true,\n      \"extra\": {}\n    }\n  ],\n  \"adopter_first_name\": \"<string>\",\n  \"adopter_last_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e06be432-cb11-4484-bd6b-6b6e85cd7c02",
+          "name": "Get external payment request",
+          "request": {
+            "name": "Get external payment request",
+            "description": {
+              "content": "Retrieves detailed information about an external payment request by its UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organization",
+                "external",
+                "payment-request",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Preferred response language (e.g. en, pt-BR).",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82d87eab-367b-4b81-9234-8ac1bf06f8bd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": {\n    \"id\": 7466,\n    \"uuid\": \"e77bce02-2d62-4e72-3f13-0c49627efd04\",\n    \"created_date\": \"string\",\n    \"modified_date\": \"string\",\n    \"deleted\": true,\n    \"canonical\": \"string\",\n    \"shelter_id\": 3647,\n    \"shelter_uuid\": \"2d4481f5-ed7d-1905-5320-6f1e45b862d3\",\n    \"type_key\": \"string\",\n    \"status_key\": \"string\",\n    \"currency\": \"string\",\n    \"code\": \"string\",\n    \"request_hash\": \"string\",\n    \"gateway_type\": \"string\",\n    \"owner_type\": \"string\",\n    \"transaction_id\": 597,\n    \"transaction_uuid\": \"string\",\n    \"contract_unsigned\": \"string\",\n    \"contract_signed\": \"string\",\n    \"adopter_user_id\": 3883,\n    \"adopter_user_uuid\": \"string\",\n    \"items_cart\": [\n      {\n        \"name\": \"string\",\n        \"base_amount\": 7350.444689518052,\n        \"taxes_amount\": 8121.886801106013,\n        \"adjust_amount\": 6676.6284526206955,\n        \"charge_amount\": 9610.132859537442,\n        \"taxes_percentage\": 9411.15076004987,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"ADOPTION_FEE\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      },\n      {\n        \"name\": \"string\",\n        \"base_amount\": 8553.081923424319,\n        \"taxes_amount\": 7754.757624338162,\n        \"adjust_amount\": 7294.16141912684,\n        \"charge_amount\": 8828.983416695726,\n        \"taxes_percentage\": 2961.494813833919,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"PRODUCT\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      }\n    ],\n    \"items_purchased\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d27c989f-90c2-465c-b152-05691a4ab69d",
+              "name": "Error envelope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ad0bbf1-ce1e-454f-af99-4493aeeec9c0",
+          "name": "Cancel external payment request",
+          "request": {
+            "name": "Cancel external payment request",
+            "description": {
+              "content": "Cancels an existing external payment request; its status transitions to CANCELLED.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organization",
+                "external",
+                "payment-request",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Preferred response language (e.g. en, pt-BR).",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2a12592-b1f0-4e81-9ba1-df4a0fa82043",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": {\n    \"id\": 7466,\n    \"uuid\": \"e77bce02-2d62-4e72-3f13-0c49627efd04\",\n    \"created_date\": \"string\",\n    \"modified_date\": \"string\",\n    \"deleted\": true,\n    \"canonical\": \"string\",\n    \"shelter_id\": 3647,\n    \"shelter_uuid\": \"2d4481f5-ed7d-1905-5320-6f1e45b862d3\",\n    \"type_key\": \"string\",\n    \"status_key\": \"string\",\n    \"currency\": \"string\",\n    \"code\": \"string\",\n    \"request_hash\": \"string\",\n    \"gateway_type\": \"string\",\n    \"owner_type\": \"string\",\n    \"transaction_id\": 597,\n    \"transaction_uuid\": \"string\",\n    \"contract_unsigned\": \"string\",\n    \"contract_signed\": \"string\",\n    \"adopter_user_id\": 3883,\n    \"adopter_user_uuid\": \"string\",\n    \"items_cart\": [\n      {\n        \"name\": \"string\",\n        \"base_amount\": 7350.444689518052,\n        \"taxes_amount\": 8121.886801106013,\n        \"adjust_amount\": 6676.6284526206955,\n        \"charge_amount\": 9610.132859537442,\n        \"taxes_percentage\": 9411.15076004987,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"ADOPTION_FEE\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      },\n      {\n        \"name\": \"string\",\n        \"base_amount\": 8553.081923424319,\n        \"taxes_amount\": 7754.757624338162,\n        \"adjust_amount\": 7294.16141912684,\n        \"charge_amount\": 8828.983416695726,\n        \"taxes_percentage\": 2961.494813833919,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"PRODUCT\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      }\n    ],\n    \"items_purchased\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f9e14df-e7f0-41a9-9cf6-a9b700066bf0",
+              "name": "Error envelope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d36b8818-38ba-4632-8a4e-c6bbc2f977d0",
+          "name": "Change payment request items",
+          "request": {
+            "name": "Change payment request items",
+            "description": {
+              "content": "Modifies items in an external payment request. The action key selects the operation (ADD, DELETE, UPDATE) and items is a map keyed by item hash.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organization",
+                "external",
+                "payment-request",
+                "change"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Preferred response language (e.g. en, pt-BR).",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"action\": \"<string>\",\n  \"items\": {\n    \"key_0\": {\n      \"name\": \"<string>\",\n      \"base_amount\": \"<number>\",\n      \"taxes_amount\": \"<number>\",\n      \"adjust_amount\": \"<number>\",\n      \"charge_amount\": \"<number>\",\n      \"taxes_percentage\": \"<number>\",\n      \"adjust_reason\": \"<string,null>\",\n      \"type_key\": \"<string>\",\n      \"image\": \"<string,null>\",\n      \"is_required\": \"<boolean>\",\n      \"extra\": \"<object>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ff2c3f7-222d-4aab-b4a4-504378d4b4ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "change"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"action\": \"<string>\",\n  \"items\": {\n    \"key_0\": {\n      \"name\": \"string\",\n      \"base_amount\": 5065.137942848832,\n      \"taxes_amount\": 731.862551416359,\n      \"adjust_amount\": 2546.2634563500187,\n      \"charge_amount\": 1635.5114949938022,\n      \"taxes_percentage\": 7050.142669663959,\n      \"adjust_reason\": \"string\",\n      \"type_key\": \"ADOPTION_FEE\",\n      \"image\": null,\n      \"is_required\": true,\n      \"extra\": {}\n    },\n    \"key_1\": {\n      \"name\": \"string\",\n      \"base_amount\": 9549.352347474225,\n      \"taxes_amount\": 1594.0453770197594,\n      \"adjust_amount\": 6793.285567678684,\n      \"charge_amount\": 3107.6333370733487,\n      \"taxes_percentage\": 80.4885746832873,\n      \"adjust_reason\": null,\n      \"type_key\": \"PRODUCT\",\n      \"image\": null,\n      \"is_required\": false,\n      \"extra\": {}\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": {\n    \"id\": 7466,\n    \"uuid\": \"e77bce02-2d62-4e72-3f13-0c49627efd04\",\n    \"created_date\": \"string\",\n    \"modified_date\": \"string\",\n    \"deleted\": true,\n    \"canonical\": \"string\",\n    \"shelter_id\": 3647,\n    \"shelter_uuid\": \"2d4481f5-ed7d-1905-5320-6f1e45b862d3\",\n    \"type_key\": \"string\",\n    \"status_key\": \"string\",\n    \"currency\": \"string\",\n    \"code\": \"string\",\n    \"request_hash\": \"string\",\n    \"gateway_type\": \"string\",\n    \"owner_type\": \"string\",\n    \"transaction_id\": 597,\n    \"transaction_uuid\": \"string\",\n    \"contract_unsigned\": \"string\",\n    \"contract_signed\": \"string\",\n    \"adopter_user_id\": 3883,\n    \"adopter_user_uuid\": \"string\",\n    \"items_cart\": [\n      {\n        \"name\": \"string\",\n        \"base_amount\": 7350.444689518052,\n        \"taxes_amount\": 8121.886801106013,\n        \"adjust_amount\": 6676.6284526206955,\n        \"charge_amount\": 9610.132859537442,\n        \"taxes_percentage\": 9411.15076004987,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"ADOPTION_FEE\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      },\n      {\n        \"name\": \"string\",\n        \"base_amount\": 8553.081923424319,\n        \"taxes_amount\": 7754.757624338162,\n        \"adjust_amount\": 7294.16141912684,\n        \"charge_amount\": 8828.983416695726,\n        \"taxes_percentage\": 2961.494813833919,\n        \"adjust_reason\": \"string\",\n        \"type_key\": \"PRODUCT\",\n        \"image\": \"string\",\n        \"is_required\": true,\n        \"extra\": {}\n      }\n    ],\n    \"items_purchased\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34485f7e-de37-4d6f-9594-99f29ba54f33",
+              "name": "Error envelope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "external",
+                    "payment-request",
+                    "change"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred response language (e.g. en, pt-BR).",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<uuid>\",\n  \"action\": \"<string>\",\n  \"items\": {\n    \"key_0\": {\n      \"name\": \"string\",\n      \"base_amount\": 5065.137942848832,\n      \"taxes_amount\": 731.862551416359,\n      \"adjust_amount\": 2546.2634563500187,\n      \"charge_amount\": 1635.5114949938022,\n      \"taxes_percentage\": 7050.142669663959,\n      \"adjust_reason\": \"string\",\n      \"type_key\": \"ADOPTION_FEE\",\n      \"image\": null,\n      \"is_required\": true,\n      \"extra\": {}\n    },\n    \"key_1\": {\n      \"name\": \"string\",\n      \"base_amount\": 9549.352347474225,\n      \"taxes_amount\": 1594.0453770197594,\n      \"adjust_amount\": 6793.285567678684,\n      \"charge_amount\": 3107.6333370733487,\n      \"taxes_percentage\": 80.4885746832873,\n      \"adjust_reason\": null,\n      \"type_key\": \"PRODUCT\",\n      \"image\": null,\n      \"is_required\": false,\n      \"extra\": {}\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"2xx\",\n  \"status\": 200,\n  \"cached\": false,\n  \"message\": \"OK\",\n  \"data\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://service.api.dev.adopets.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e69345f6-21a9-4544-8643-f1229180b924",
+    "name": "Adopets External payment-request API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Adopets External API for organization (shelter/rescue) integrations. It lets an external partner system connect a staff user, then create and manage adoption-related payment requests and their transactions (adoption fees, licenses, products), including retrieving, changing, cancelling requests and refunding transactions. All operations are HTTP POST with a JSON body and use an organization API key (x-api-key) plus a per-session bearer token obtained from system-auth/connect. Derived from the provider's public Postman documentation; request/response shapes reflect the published examples.\n\nContact Support:\n Name: Adopets",
+      "type": "text/plain"
+    }
+  }
+}

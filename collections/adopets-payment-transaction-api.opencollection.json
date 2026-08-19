@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adopets External payment-request payment-transaction API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "payment-transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get external payment transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/payment-transaction/get",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a payment transaction by its UUID."
+        },
+        {
+          "info": {
+            "name": "Refund external payment transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/payment-transaction/refund",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Refunds a payment transaction, in whole or in part. type_key selects the refund source (e.g. SHELTER_FUNDS), reason is a machine reason code, and amount is the refund amount."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

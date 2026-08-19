@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adopets External payment-request API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "payment-request",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create external payment request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/payment-request/create",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates an external payment request for an adoption transaction, including one or more line items (adoption fee, license, product) charged to an adopter."
+        },
+        {
+          "info": {
+            "name": "Get external payment request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/payment-request/get",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves detailed information about an external payment request by its UUID."
+        },
+        {
+          "info": {
+            "name": "Cancel external payment request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/payment-request/cancel",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels an existing external payment request; its status transitions to CANCELLED."
+        },
+        {
+          "info": {
+            "name": "Change payment request items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/payment-request/change",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Modifies items in an external payment request. The action key selects the operation (ADD, DELETE, UPDATE) and items is a map keyed by item hash."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

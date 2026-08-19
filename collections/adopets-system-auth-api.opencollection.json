@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adopets External payment-request system-auth API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "system-auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Connect external system user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/system-auth/connect",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Authenticates and connects an external system user to the organization, returning an authorization (session) token used as the bearer token for subsequent requests."
+        },
+        {
+          "info": {
+            "name": "Disconnect external system user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://service.api.dev.adopets.app/organization/external/system-auth/disconnect",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disconnects a user from the external system authentication, removing their integration access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
