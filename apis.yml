@@ -39,6 +39,15 @@ tags:
 - Adoption Management
 - Payments
 - Nonprofit Technology
+- Software-as-a-Service
+- Company
+tags_raw:
+- Pet Adoption
+- Animal Welfare
+- Shelters and Rescues
+- Adoption Management
+- Payments
+- Nonprofit Technology
 - SaaS
 - Company
 apis:
@@ -48,6 +57,8 @@ apis:
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
   tags:
+  - Payment Request
+  tags_raw:
   - payment-request
   properties:
   - type: OpenAPI
@@ -60,6 +71,8 @@ apis:
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
   tags:
+  - Payment Transaction
+  tags_raw:
   - payment-transaction
   properties:
   - type: OpenAPI
