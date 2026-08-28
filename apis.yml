@@ -10,6 +10,17 @@ description: >-
   retrieve, change, cancel, and refund adoption payment requests and transactions on behalf of an
   organization, authenticated with an organization API key plus a per-session JWT bearer token.
 url: https://raw.githubusercontent.com/api-evangelist/adopets/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
