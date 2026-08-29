@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Adopets External payment-request API
+  title: Adopets External Payment Request API
   version: '1.0'
   description: Adopets External API for organization (shelter/rescue) integrations. It lets an external partner system connect a staff user, then create and manage adoption-related payment requests and their transactions (adoption fees, licenses, products), including retrieving, changing, cancelling requests and refunding transactions. All operations are HTTP POST with a JSON body and use an organization API key (x-api-key) plus a per-session bearer token obtained from system-auth/connect. Derived from the provider's public Postman documentation; request/response shapes reflect the published examples.
   contact:
@@ -143,6 +143,10 @@ paths:
                 $ref: '#/components/schemas/EnvelopeError'
 components:
   schemas:
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     EnvelopePaymentRequest:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -150,6 +154,27 @@ components:
         properties:
           data:
             $ref: '#/components/schemas/PaymentRequest'
+    PaymentRequestCreate:
+      type: object
+      required:
+      - adopter_email
+      - type_key
+      - items
+      properties:
+        adopter_email:
+          type: string
+          format: email
+        adopter_first_name:
+          type: string
+        adopter_last_name:
+          type: string
+        type_key:
+          type: string
+          example: EXTERNAL_ADOPTION
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestItem'
     PaymentRequestItem:
       type: object
       properties:
@@ -184,27 +209,6 @@ components:
           type: boolean
         extra:
           type: object
-    PaymentRequestCreate:
-      type: object
-      required:
-      - adopter_email
-      - type_key
-      - items
-      properties:
-        adopter_email:
-          type: string
-          format: email
-        adopter_first_name:
-          type: string
-        adopter_last_name:
-          type: string
-        type_key:
-          type: string
-          example: EXTERNAL_ADOPTION
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestItem'
     PaymentRequest:
       type: object
       description: Adoption payment request resource (subset of published fields).
@@ -273,10 +277,6 @@ components:
           items:
             $ref: '#/components/schemas/PaymentRequestItem'
         items_purchased: {}
-    EnvelopeError:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     PaymentRequestChange:
       type: object
       required:
