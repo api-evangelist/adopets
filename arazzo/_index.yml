@@ -1,6 +1,6 @@
-generated: '2026-07-17'
-method: derived
-source: arazzo/*.yml
+x-generated: '2026-07-17'
+x-method: derived
+x-source: arazzo/*.yml
 workflows:
   - file: adopets-create-adoption-payment.yml
     workflowId: create-adoption-payment

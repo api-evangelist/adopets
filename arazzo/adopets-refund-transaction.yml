@@ -6,44 +6,47 @@ info:
     Connect a staff user, look up a payment transaction by uuid, then issue a refund. Grounded
     in real operationIds from the Adopets External API.
 sourceDescriptions:
-  - name: adopets
-    url: ../openapi/adopets-external-openapi.yml
-    type: openapi
+- name: paymentTransactionApi
+  url: ../openapi/adopets-payment-transaction-api-openapi.yml
+  type: openapi
+- name: systemAuthApi
+  url: ../openapi/adopets-system-auth-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: refund-transaction
-    summary: Connect, fetch a transaction, and refund it (in whole or in part).
-    inputs:
-      type: object
-      properties:
-        email: { type: string }
-        role: { type: string }
-        transaction_uuid: { type: string }
-        amount: { type: number }
-        reason: { type: string }
-    steps:
-      - stepId: connect
-        operationId: connectExternalSystemUser
-        requestBody:
-          contentType: application/json
-          payload:
-            email: $inputs.email
-            role: $inputs.role
-        outputs:
-          session: $response.body#/data/authorization
-      - stepId: get-transaction
-        operationId: getPaymentTransaction
-        requestBody:
-          contentType: application/json
-          payload:
-            uuid: $inputs.transaction_uuid
-      - stepId: refund
-        operationId: refundPaymentTransaction
-        requestBody:
-          contentType: application/json
-          payload:
-            uuid: $inputs.transaction_uuid
-            type_key: SHELTER_FUNDS
-            reason: $inputs.reason
-            amount: $inputs.amount
+- workflowId: refund-transaction
+  summary: Connect, fetch a transaction, and refund it (in whole or in part).
+  inputs:
+    type: object
+    properties:
+      email: {type: string}
+      role: {type: string}
+      transaction_uuid: {type: string}
+      amount: {type: number}
+      reason: {type: string}
+  steps:
+  - stepId: connect
+    operationId: connectExternalSystemUser
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        role: $inputs.role
     outputs:
-      refunded_uuid: $inputs.transaction_uuid
+      session: $response.body#/data/authorization
+  - stepId: get-transaction
+    operationId: getPaymentTransaction
+    requestBody:
+      contentType: application/json
+      payload:
+        uuid: $inputs.transaction_uuid
+  - stepId: refund
+    operationId: refundPaymentTransaction
+    requestBody:
+      contentType: application/json
+      payload:
+        uuid: $inputs.transaction_uuid
+        type_key: SHELTER_FUNDS
+        reason: $inputs.reason
+        amount: $inputs.amount
+  outputs:
+    refunded_uuid: $inputs.transaction_uuid
