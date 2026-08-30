@@ -68,7 +68,7 @@ apis:
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
   tags:
-  - Payment Request
+  - payment-request
   tags_raw:
   - payment-request
   properties:
@@ -82,7 +82,7 @@ apis:
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
   tags:
-  - Payment Transaction
+  - payment-transaction
   tags_raw:
   - payment-transaction
   properties:
