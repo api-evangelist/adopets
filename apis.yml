@@ -45,6 +45,9 @@ x-tier-reason: enriched-from-public-api
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-17'
+x-docs-platform: postman
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-17
 tags:
 - Pet Adoption
 - Animal Welfare
@@ -122,8 +125,6 @@ common:
   url: https://developers.adopets.com/
 - type: GitHubOrganization
   url: https://github.com/adopets
-- type: OpenAPI
-  url: openapi/_original/adopets-external-openapi.yml
 - type: Overlay
   url: overlays/adopets-external-overlay.yaml
 - type: Authentication
