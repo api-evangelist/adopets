@@ -1,9 +1,7 @@
 {
   "provider": "adopets",
   "sources": [
-    "adopets-payment-request-api-openapi.yml",
-    "adopets-payment-transaction-api-openapi.yml",
-    "adopets-system-auth-api-openapi.yml"
+    "_ae-authored/adopets-external-openapi.yml"
   ],
   "outputs": [
     "adopets-payment-request-api-openapi.yml",
@@ -14,7 +12,13 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "adopets-external-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "adopets-payment-request-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adopets-payment-transaction-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adopets-system-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

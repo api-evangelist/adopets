@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Adopets External payment-request System Auth API
+  title: Adopets External System Auth API
   version: '1.0'
-  description: Adopets External API for organization (shelter/rescue) integrations. It lets an external partner system connect a staff user, then create and manage adoption-related payment requests and their transactions (adoption fees, licenses, products), including retrieving, changing, cancelling requests and refunding transactions. All operations are HTTP POST with a JSON body and use an organization API key (x-api-key) plus a per-session bearer token obtained from system-auth/connect. Derived from the provider's public Postman documentation; request/response shapes reflect the published examples.
+  description: Adopets External API for organization (shelter/rescue) integrations.
   contact:
     name: Adopets
     url: https://developers.adopets.com/
@@ -92,6 +92,28 @@ paths:
                 $ref: '#/components/schemas/EnvelopeError'
 components:
   schemas:
+    ExternalSystemUser:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        role:
+          type: string
+          description: External user role.
+          enum:
+          - staff
+          - super_user
+          - editor
+          - owner
+          - foster_admin
+          - admin
     EnvelopeError:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -123,28 +145,6 @@ components:
           type: string
           example: OK
         data: {}
-    ExternalSystemUser:
-      type: object
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-        first_name:
-          type: string
-        last_name:
-          type: string
-        role:
-          type: string
-          description: External user role.
-          enum:
-          - staff
-          - super_user
-          - editor
-          - owner
-          - foster_admin
-          - admin
   parameters:
     AcceptLanguage:
       name: Accept-Language
