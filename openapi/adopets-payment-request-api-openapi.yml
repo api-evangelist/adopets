@@ -143,18 +143,64 @@ paths:
                 $ref: '#/components/schemas/EnvelopeError'
 components:
   schemas:
-    EnvelopeError:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
-    UuidRef:
+    PaymentRequestCreate:
+      type: object
+      required:
+      - adopter_email
+      - type_key
+      - items
+      properties:
+        adopter_email:
+          type: string
+          format: email
+        adopter_first_name:
+          type: string
+        adopter_last_name:
+          type: string
+        type_key:
+          type: string
+          example: EXTERNAL_ADOPTION
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestItem'
+    PaymentRequestChange:
       type: object
       required:
       - uuid
+      - action
+      - items
       properties:
         uuid:
           type: string
           format: uuid
+        action:
+          type: string
+          enum:
+          - ADD
+          - DELETE
+          - UPDATE
+        items:
+          type: object
+          description: Map keyed by item hash; values are PaymentRequestItem objects.
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentRequestItem'
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
     PaymentRequest:
       type: object
       description: Adoption payment request resource (subset of published fields).
@@ -230,6 +276,18 @@ components:
         properties:
           data:
             $ref: '#/components/schemas/PaymentRequest'
+    UuidRef:
+      type: object
+      required:
+      - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     PaymentRequestItem:
       type: object
       properties:
@@ -264,64 +322,6 @@ components:
           type: boolean
         extra:
           type: object
-    Envelope:
-      type: object
-      description: Standard Adopets response envelope.
-      properties:
-        prefix:
-          type: string
-          example: 2xx
-        status:
-          type: integer
-          example: 200
-        cached:
-          type: boolean
-        message:
-          type: string
-          example: OK
-        data: {}
-    PaymentRequestCreate:
-      type: object
-      required:
-      - adopter_email
-      - type_key
-      - items
-      properties:
-        adopter_email:
-          type: string
-          format: email
-        adopter_first_name:
-          type: string
-        adopter_last_name:
-          type: string
-        type_key:
-          type: string
-          example: EXTERNAL_ADOPTION
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestItem'
-    PaymentRequestChange:
-      type: object
-      required:
-      - uuid
-      - action
-      - items
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        action:
-          type: string
-          enum:
-          - ADD
-          - DELETE
-          - UPDATE
-        items:
-          type: object
-          description: Map keyed by item hash; values are PaymentRequestItem objects.
-          additionalProperties:
-            $ref: '#/components/schemas/PaymentRequestItem'
   parameters:
     AcceptLanguage:
       name: Accept-Language

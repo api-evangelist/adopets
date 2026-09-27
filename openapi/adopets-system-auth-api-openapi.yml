@@ -114,10 +114,6 @@ components:
           - owner
           - foster_admin
           - admin
-    EnvelopeError:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     EnvelopeAuth:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -145,6 +141,10 @@ components:
           type: string
           example: OK
         data: {}
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
   parameters:
     AcceptLanguage:
       name: Accept-Language

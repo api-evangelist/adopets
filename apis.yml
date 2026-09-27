@@ -68,7 +68,7 @@ tags_raw:
 - Company
 apis:
 - aid: adopets:adopets-payment-request-api
-  name: Adopets payment-request API
+  name: Adopets Payment Request API
   description: Create and manage adoption payment requests
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
@@ -82,7 +82,7 @@ apis:
   - type: Documentation
     url: https://developers.adopets.com/
 - aid: adopets:adopets-payment-transaction-api
-  name: Adopets payment-transaction API
+  name: Adopets Payment Transaction API
   description: Retrieve and refund payment transactions
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
@@ -96,7 +96,7 @@ apis:
   - type: Documentation
     url: https://developers.adopets.com/
 - aid: adopets:adopets-system-auth-api
-  name: Adopets system-auth API
+  name: Adopets System Auth API
   description: Connect/disconnect an external system user and obtain a session token
   humanURL: https://developers.adopets.com/
   baseURL: https://service.api.dev.adopets.app
