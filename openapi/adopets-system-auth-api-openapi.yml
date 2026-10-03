@@ -92,28 +92,10 @@ paths:
                 $ref: '#/components/schemas/EnvelopeError'
 components:
   schemas:
-    ExternalSystemUser:
-      type: object
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-        first_name:
-          type: string
-        last_name:
-          type: string
-        role:
-          type: string
-          description: External user role.
-          enum:
-          - staff
-          - super_user
-          - editor
-          - owner
-          - foster_admin
-          - admin
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     EnvelopeAuth:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -141,10 +123,28 @@ components:
           type: string
           example: OK
         data: {}
-    EnvelopeError:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
+    ExternalSystemUser:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        role:
+          type: string
+          description: External user role.
+          enum:
+          - staff
+          - super_user
+          - editor
+          - owner
+          - foster_admin
+          - admin
   parameters:
     AcceptLanguage:
       name: Accept-Language

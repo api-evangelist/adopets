@@ -87,6 +87,10 @@ paths:
                 $ref: '#/components/schemas/EnvelopeError'
 components:
   schemas:
+    EnvelopeError:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     Envelope:
       type: object
       description: Standard Adopets response envelope.
@@ -111,10 +115,6 @@ components:
         uuid:
           type: string
           format: uuid
-    EnvelopeError:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
     RefundRequest:
       type: object
       required:
