@@ -147,6 +147,50 @@ components:
       allOf:
       - $ref: '#/components/schemas/Envelope'
       description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
+    EnvelopePaymentRequest:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/PaymentRequest'
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
+    PaymentRequestCreate:
+      type: object
+      required:
+      - adopter_email
+      - type_key
+      - items
+      properties:
+        adopter_email:
+          type: string
+          format: email
+        adopter_first_name:
+          type: string
+        adopter_last_name:
+          type: string
+        type_key:
+          type: string
+          example: EXTERNAL_ADOPTION
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestItem'
     PaymentRequestChange:
       type: object
       required:
@@ -168,71 +212,6 @@ components:
           description: Map keyed by item hash; values are PaymentRequestItem objects.
           additionalProperties:
             $ref: '#/components/schemas/PaymentRequestItem'
-    Envelope:
-      type: object
-      description: Standard Adopets response envelope.
-      properties:
-        prefix:
-          type: string
-          example: 2xx
-        status:
-          type: integer
-          example: 200
-        cached:
-          type: boolean
-        message:
-          type: string
-          example: OK
-        data: {}
-    PaymentRequestItem:
-      type: object
-      properties:
-        name:
-          type: string
-        base_amount:
-          type: number
-        taxes_amount:
-          type: number
-        adjust_amount:
-          type: number
-        charge_amount:
-          type: number
-        taxes_percentage:
-          type: number
-        adjust_reason:
-          type:
-          - string
-          - 'null'
-        type_key:
-          type: string
-          description: Item classification.
-          enum:
-          - ADOPTION_FEE
-          - LICENSE
-          - PRODUCT
-        image:
-          type:
-          - string
-          - 'null'
-        is_required:
-          type: boolean
-        extra:
-          type: object
-    UuidRef:
-      type: object
-      required:
-      - uuid
-      properties:
-        uuid:
-          type: string
-          format: uuid
-    EnvelopePaymentRequest:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            $ref: '#/components/schemas/PaymentRequest'
     PaymentRequest:
       type: object
       description: Adoption payment request resource (subset of published fields).
@@ -301,27 +280,48 @@ components:
           items:
             $ref: '#/components/schemas/PaymentRequestItem'
         items_purchased: {}
-    PaymentRequestCreate:
+    PaymentRequestItem:
       type: object
-      required:
-      - adopter_email
-      - type_key
-      - items
       properties:
-        adopter_email:
+        name:
           type: string
-          format: email
-        adopter_first_name:
-          type: string
-        adopter_last_name:
-          type: string
+        base_amount:
+          type: number
+        taxes_amount:
+          type: number
+        adjust_amount:
+          type: number
+        charge_amount:
+          type: number
+        taxes_percentage:
+          type: number
+        adjust_reason:
+          type:
+          - string
+          - 'null'
         type_key:
           type: string
-          example: EXTERNAL_ADOPTION
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestItem'
+          description: Item classification.
+          enum:
+          - ADOPTION_FEE
+          - LICENSE
+          - PRODUCT
+        image:
+          type:
+          - string
+          - 'null'
+        is_required:
+          type: boolean
+        extra:
+          type: object
+    UuidRef:
+      type: object
+      required:
+      - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
   parameters:
     AcceptLanguage:
       name: Accept-Language

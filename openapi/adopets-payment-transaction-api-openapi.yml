@@ -91,6 +91,23 @@ components:
       allOf:
       - $ref: '#/components/schemas/Envelope'
       description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
+    RefundRequest:
+      type: object
+      required:
+      - uuid
+      - amount
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        type_key:
+          type: string
+          example: SHELTER_FUNDS
+        reason:
+          type: string
+          example: requested_by_customer
+        amount:
+          type: number
     Envelope:
       type: object
       description: Standard Adopets response envelope.
@@ -115,23 +132,6 @@ components:
         uuid:
           type: string
           format: uuid
-    RefundRequest:
-      type: object
-      required:
-      - uuid
-      - amount
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        type_key:
-          type: string
-          example: SHELTER_FUNDS
-        reason:
-          type: string
-          example: requested_by_customer
-        amount:
-          type: number
   parameters:
     AcceptLanguage:
       name: Accept-Language

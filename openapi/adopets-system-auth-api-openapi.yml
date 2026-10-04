@@ -107,22 +107,6 @@ components:
               authorization:
                 type: string
                 description: JWT session token
-    Envelope:
-      type: object
-      description: Standard Adopets response envelope.
-      properties:
-        prefix:
-          type: string
-          example: 2xx
-        status:
-          type: integer
-          example: 200
-        cached:
-          type: boolean
-        message:
-          type: string
-          example: OK
-        data: {}
     ExternalSystemUser:
       type: object
       required:
@@ -145,6 +129,22 @@ components:
           - owner
           - foster_admin
           - admin
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
   parameters:
     AcceptLanguage:
       name: Accept-Language
