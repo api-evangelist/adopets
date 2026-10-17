@@ -143,33 +143,44 @@ paths:
                 $ref: '#/components/schemas/EnvelopeError'
 components:
   schemas:
+    PaymentRequestItem:
+      type: object
+      properties:
+        name:
+          type: string
+        base_amount:
+          type: number
+        taxes_amount:
+          type: number
+        adjust_amount:
+          type: number
+        charge_amount:
+          type: number
+        taxes_percentage:
+          type: number
+        adjust_reason:
+          type:
+          - string
+          - 'null'
+        type_key:
+          type: string
+          description: Item classification.
+          enum:
+          - ADOPTION_FEE
+          - LICENSE
+          - PRODUCT
+        image:
+          type:
+          - string
+          - 'null'
+        is_required:
+          type: boolean
+        extra:
+          type: object
     EnvelopeError:
       allOf:
       - $ref: '#/components/schemas/Envelope'
       description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
-    EnvelopePaymentRequest:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            $ref: '#/components/schemas/PaymentRequest'
-    Envelope:
-      type: object
-      description: Standard Adopets response envelope.
-      properties:
-        prefix:
-          type: string
-          example: 2xx
-        status:
-          type: integer
-          example: 200
-        cached:
-          type: boolean
-        message:
-          type: string
-          example: OK
-        data: {}
     PaymentRequestCreate:
       type: object
       required:
@@ -190,27 +201,6 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/PaymentRequestItem'
-    PaymentRequestChange:
-      type: object
-      required:
-      - uuid
-      - action
-      - items
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        action:
-          type: string
-          enum:
-          - ADD
-          - DELETE
-          - UPDATE
-        items:
-          type: object
-          description: Map keyed by item hash; values are PaymentRequestItem objects.
-          additionalProperties:
             $ref: '#/components/schemas/PaymentRequestItem'
     PaymentRequest:
       type: object
@@ -280,40 +270,6 @@ components:
           items:
             $ref: '#/components/schemas/PaymentRequestItem'
         items_purchased: {}
-    PaymentRequestItem:
-      type: object
-      properties:
-        name:
-          type: string
-        base_amount:
-          type: number
-        taxes_amount:
-          type: number
-        adjust_amount:
-          type: number
-        charge_amount:
-          type: number
-        taxes_percentage:
-          type: number
-        adjust_reason:
-          type:
-          - string
-          - 'null'
-        type_key:
-          type: string
-          description: Item classification.
-          enum:
-          - ADOPTION_FEE
-          - LICENSE
-          - PRODUCT
-        image:
-          type:
-          - string
-          - 'null'
-        is_required:
-          type: boolean
-        extra:
-          type: object
     UuidRef:
       type: object
       required:
@@ -322,6 +278,50 @@ components:
         uuid:
           type: string
           format: uuid
+    EnvelopePaymentRequest:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/PaymentRequest'
+    Envelope:
+      type: object
+      description: Standard Adopets response envelope.
+      properties:
+        prefix:
+          type: string
+          example: 2xx
+        status:
+          type: integer
+          example: 200
+        cached:
+          type: boolean
+        message:
+          type: string
+          example: OK
+        data: {}
+    PaymentRequestChange:
+      type: object
+      required:
+      - uuid
+      - action
+      - items
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        action:
+          type: string
+          enum:
+          - ADD
+          - DELETE
+          - UPDATE
+        items:
+          type: object
+          description: Map keyed by item hash; values are PaymentRequestItem objects.
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentRequestItem'
   parameters:
     AcceptLanguage:
       name: Accept-Language

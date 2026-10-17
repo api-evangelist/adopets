@@ -96,17 +96,6 @@ components:
       allOf:
       - $ref: '#/components/schemas/Envelope'
       description: Error variant of the standard envelope (prefix 4xx/5xx, non-OK message).
-    EnvelopeAuth:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            type: object
-            properties:
-              authorization:
-                type: string
-                description: JWT session token
     ExternalSystemUser:
       type: object
       required:
@@ -145,6 +134,17 @@ components:
           type: string
           example: OK
         data: {}
+    EnvelopeAuth:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              authorization:
+                type: string
+                description: JWT session token
   parameters:
     AcceptLanguage:
       name: Accept-Language
